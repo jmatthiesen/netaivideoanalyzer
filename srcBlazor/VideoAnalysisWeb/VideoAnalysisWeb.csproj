@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Radzen.Blazor" Version="5.5.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AspireVideoAnalyserBlazor.ServiceDefaults\AspireVideoAnalyserBlazor.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\AspireVideoAnalyserBlazor.Shared\AspireVideoAnalyserBlazor.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

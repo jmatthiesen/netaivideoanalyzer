@@ -1,0 +1,311 @@
+﻿@page "/"
+@using VideoAnalysisWeb.Components.Shared
+@attribute [StreamRendering]
+@rendermode InteractiveServer
+@inject VideoAnalysisApiClient VideoAnalysisApi
+@inject ILogger<Index> Logger
+@inject IConfiguration Config
+<RadzenNotification @rendermode="@RenderMode.InteractiveServer" />
+<RadzenDialog @rendermode="@RenderMode.InteractiveServer" />
+<RadzenLayout>
+    <RadzenHeader>
+        <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0">
+            <RadzenSidebarToggle Click="@(() => sidebarExpanded = !sidebarExpanded)" />
+            <RadzenLabel Text="Video Analyser" />
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.End" JustifyContent="JustifyContent.End" Gap="2rem" Wrap="FlexWrap.Wrap" class="rz-p-2">
+                <RadzenAppearanceToggle />
+            </RadzenStack>
+        </RadzenStack>
+    </RadzenHeader>
+    <RadzenSidebar Responsive="false" @bind-Expanded="@sidebarExpanded">
+        <RadzenPanelMenu>
+            <RadzenPanelMenuItem Text="Home" Icon="movie" Click="ShowHome" />
+            <RadzenPanelMenuItem Text="Settings" Icon="settings" Click="ShowSettings" />
+        </RadzenPanelMenu>
+    </RadzenSidebar>
+    <RadzenBody>
+        <div class="rz-display-@GetHome()">
+
+            <RadzenRow Gap="1rem">
+                <RadzenColumn Size="6">
+                    <RadzenPanel AllowCollapse="true" Collapsed="true" class="rz-m-md-3" Style="width: 100%;">
+                        <HeaderTemplate>
+                            <RadzenText TextStyle="TextStyle.H6" class="rz-display-flex rz-align-items-center rz-m-0">
+                                <RadzenIcon Icon="settings" class="rz-me-1" /><b>Configuration</b>
+                            </RadzenText>
+                        </HeaderTemplate>
+                        <ChildContent>
+                            <RadzenStack Orientation="Orientation.Vertical" JustifyContent="JustifyContent.Start" class="rz-p-1 rz-my-4">
+                                <RadzenText TextStyle="TextStyle.Subtitle2" class="rz-my-0">Number of Frames to be analyzed</RadzenText>
+                                <RadzenNumeric @bind-Value=@numberOfFramesToBeProcessed Max=20 Min=5 class="rz-my-0" />
+                                <RadzenText TextStyle="TextStyle.Subtitle2" class="rz-my-0">System Prompt</RadzenText>
+                                <RadzenTextArea @bind-Value=@systemPrompt
+                                                Placeholder="@systemPrompt" Style="width: 100%" aria-label="System prompt" />
+                                <RadzenText TextStyle="TextStyle.Subtitle2" class="rz-my-0">User Prompt</RadzenText>
+                                <RadzenTextArea @bind-Value=@userPrompt Placeholder="@userPrompt" Style="width: 100%" aria-label="System prompt" />
+                            </RadzenStack>
+                        </ChildContent>
+                    </RadzenPanel>
+                    <RadzenPanel AllowCollapse="true" class="rz-m-0 rz-m-md-3" Style="width: 100%;">
+                        <HeaderTemplate>
+                            <RadzenText TextStyle="TextStyle.H6" class="rz-display-flex rz-align-items-center rz-m-0">
+                                <RadzenIcon Icon="account_box" class="rz-me-1" /><b>Analyze Video</b>
+                            </RadzenText>
+                        </HeaderTemplate>
+                        <ChildContent>
+
+
+                            <RadzenText TextStyle="TextStyle.Subtitle1" class="rz-my-2">Select a video file to analyze</RadzenText>
+                            <InputFile OnChange="LoadFiles" ButtonStyle="ButtonStyle.Primary" />
+                            @if (selectedFile is not null)
+
+                            {
+                                <br />
+                                <RadzenText TextStyle="TextStyle.Caption">Video: <strong>[@(selectedFile?.Name + "- Content Type: " + selectedFile?.ContentType + " - size: " + selectedFile?.Size)]</strong></RadzenText>
+                            }
+
+
+                            <RadzenText TextStyle="TextStyle.Subtitle1" class="rz-my-2">Analyze video</RadzenText>
+                            <RadzenButton Click=@(args => AnalyzeVideoButtonClick("analyze video")) Text="Analyze Video" ButtonStyle="ButtonStyle.Base" />
+                        </ChildContent>
+                    </RadzenPanel>
+
+                </RadzenColumn>
+                <RadzenColumn>
+                    <RadzenPanel AllowCollapse="true" class="rz-m-md-3" Style="width: 100%;">
+                        <HeaderTemplate>
+                            <RadzenText TextStyle="TextStyle.H6" class="rz-display-flex rz-align-items-center rz-m-0">
+                                <RadzenIcon Icon="Note" class="rz-me-1" /><b>Result</b>
+                            </RadzenText>
+                        </HeaderTemplate>
+                        <ChildContent>
+                            @if (isAnalyzing)
+
+                            {
+                                <div class="w-100 h-100 d-flex justify-content-left align-items-left">
+                                    <RadzenText TextStyle="TextStyle.Subtitle1">Analyzing @selectedFile?.Name</RadzenText>
+                                    <RadzenProgressBarCircular ProgressBarStyle="ProgressBarStyle.Primary" Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
+                                </div>
+                            }
+                            else
+                            {
+                                @if (videoResponse is not null)
+
+                                {
+                                    <RadzenCard Variant="Variant.Filled">
+                                        <RadzenStack Orientation="Orientation.Vertical" JustifyContent="JustifyContent.Start" class="rz-p-1">
+                                            <RadzenStack Gap="0">
+                                                <RadzenText TextStyle="TextStyle.Body2" class="rz-display-flex rz-mt-2 rz-my-0">Frames = [Total / Analyzed]</RadzenText>
+                                                <RadzenText TextStyle="TextStyle.Overline"><b>@(videoResponse?.TotalFrames + " / " + videoResponse?.ProcessedFrames)</b></RadzenText>
+                                                <RadzenText TextStyle="TextStyle.Body1" class="rz-display-flex rz-mt-2 rz-mb-0">Description</RadzenText>
+                                                <RadzenText TextStyle="TextStyle.Overline"><b>@videoResponse?.VideoDescription</b></RadzenText>
+                                            </RadzenStack>
+                                            <RadzenImage Path="@videoResponse.VideoFrame" Style="width: 120; height: 80; border-radius: 5%;" />
+                                        </RadzenStack>
+                                    </RadzenCard>
+                                }
+                            }
+                        </ChildContent>
+                    </RadzenPanel>
+                </RadzenColumn>
+            </RadzenRow>
+
+
+            <EventConsole class="rz-m-0 rz-m-md-3" @ref=@console />
+        </div>
+        <div class="rz-p-4 rz-display-@GetSettings()">
+            <h1>Settings</h1>
+        </div>
+    </RadzenBody>
+</RadzenLayout>
+@code {
+    bool sidebarExpanded = false;
+
+    bool showHome = true;
+
+    bool showSettings = false;
+
+    EventConsole console;
+
+    private IBrowserFile selectedFile;
+
+    private VideoResponse videoResponse;
+
+    private byte[] videoFileBytes;
+
+    private long maxFileSize = 1024 * 1024 * 50;
+
+    private int maxAllowedFiles = 1;
+
+    private bool isLoading;
+
+    private bool isAnalyzing;
+
+    int numberOfFramesToBeProcessed = 0;
+
+    string systemPrompt = string.Empty;
+
+    string userPrompt = string.Empty;
+
+    protected override void OnInitialized()
+
+    {
+
+        base.OnInitialized();
+
+        systemPrompt = Config["VideoAnalyzer:systemPrompt"];
+
+        userPrompt = Config["VideoAnalyzer:userPrompt"];
+
+        numberOfFramesToBeProcessed = int.Parse(Config["VideoAnalyzer:numberOfFrames"]);
+
+    }
+
+    string GetHome()
+
+    {
+
+        return showHome ? "grid" : "none";
+
+    }
+
+    string GetSettings()
+
+    {
+
+        return showSettings ? "grid" : "none";
+
+    }
+
+    void ShowHome()
+
+    {
+
+        showHome = true;
+
+        showSettings = false;
+
+        StateHasChanged();
+
+    }
+
+    void ShowSettings()
+
+    {
+
+        showHome = false;
+
+        showSettings = true;
+
+        StateHasChanged();
+
+    }
+
+    private async Task LoadFiles(InputFileChangeEventArgs e)
+
+    {
+
+        isLoading = true;
+
+        console.Log($"Starting load selected file ...");
+
+        foreach (var file in e.GetMultipleFiles(maxAllowedFiles))
+
+        {
+
+            try
+
+            {
+
+                selectedFile = file;
+
+                console.Log($"Selected file: {selectedFile.Name}");
+
+            }
+
+            catch (Exception ex)
+
+            {
+
+                Logger.LogError("File: {Filename} Error: {Error}", file.Name, ex.Message);
+
+                console.Log($"File: {file.Name} Error: {ex.Message}");
+
+            }
+
+        }
+
+        isLoading = false;
+
+    }
+
+    private async void AnalyzeVideoButtonClick(string text)
+
+    {
+
+        isAnalyzing = true;
+
+        StateHasChanged();
+
+        console.Log($"Starting analyze video ...");
+
+        try
+
+        {
+
+            if (selectedFile is null)
+
+            {
+
+                console.Log($"No file selected to analyze");
+
+                return;
+
+            }
+
+            var videoRequest = new VideoRequest();
+
+            videoRequest.VideoBytes = videoFileBytes;
+
+            videoRequest.VideoFileName = selectedFile.Name;
+
+            videoRequest.VideoFileContentType = selectedFile.ContentType;
+
+            videoRequest.NumberOfFramesToBeProcessed = numberOfFramesToBeProcessed;
+
+            videoRequest.SystemPrompt = systemPrompt;
+
+            videoRequest.UserPrompt = userPrompt;
+
+            // get the file bytes
+
+            videoFileBytes = new byte[selectedFile.Size];
+
+            await using var ms = new MemoryStream();
+
+            await selectedFile.OpenReadStream(maxFileSize).CopyToAsync(ms);
+
+            videoFileBytes = ms.ToArray();
+
+            videoRequest.VideoBytes = videoFileBytes;
+
+            videoResponse = await VideoAnalysisApi.AnalyzeVideoAsync(videoRequest);
+
+            console.Log($"Analyze video done!");
+
+        }
+
+        catch (Exception ex)
+
+        {
+
+            console.Log($"Error analyzing video. Error: {ex}");
+
+        }
+
+        isAnalyzing = false;
+
+        StateHasChanged();
+
+    }
+}
