@@ -99,13 +99,13 @@ To run the sample using GitHub Models, located in `./src/ConsoleMEAI-05-GitHubMo
 
 Once you got your PAT, follow this steps.
 
-- Navigating to the sample project folder using the command:
+- Navigate to the sample project folder using the command:
 
 ```bash
 cd ./src/ConsoleMEAI-05-GitHubModels/
 ```
 
-- Run the project with the command:
+- Run the project:
 
 ```bash
 dotnet run
@@ -115,13 +115,11 @@ dotnet run
 
 ![Run Sample using MEAI and GitHub Models](./images/15GHModelsRunSample.png)
 
-Note: Create GitHub Personal Access Token (PAT) [here](https://github.com/settings/tokens).
-
 ### Run OpenAI .NET Library samples
 
 To run the sample using OpenAI APIs, located in `./src/ConsoleOpenAI-04-VideoAnalyzer`, you must set your OpenAI Key in a user secret.
 
-- Navigating to the sample project folder using the command:
+- Navigate to the sample project folder using the command:
 
 ```bash
 cd ./src/ConsoleOpenAI-04-VideoAnalyzer/
@@ -134,7 +132,7 @@ dotnet user-secrets init
 dotnet user-secrets set "OPENAI_KEY" "< your key goes here >"
 ```
 
-- Run the project with the command:
+- Run the project:
 
 ```bash
 dotnet run
@@ -148,7 +146,7 @@ dotnet run
 
 To run the sample using Azure OpenAI Services, located in `./src/ConsoleAOAI-04-VideoAnalyzer`, you must set your Azure OpenAI keys in a user secret.
 
-- Navigating to the sample project folder using the command:
+- Navigate to the sample project folder using the command:
 
 ```bash
 cd ./src/ConsoleAOAI-04-VideoAnalyzer/
@@ -192,7 +190,6 @@ However, Azure Container Registry has a fixed cost per registry per day.
 You can try the [Azure pricing calculator](https://azure.com/e/2176802ea14941e4959eae8ad335aeb5) for the resources:
 
 - Azure OpenAI Service: S0 tier, gpt-4o-mini model. Pricing is based on token count. [Pricing](https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/)
-
 
 ### Security Guidelines
 
