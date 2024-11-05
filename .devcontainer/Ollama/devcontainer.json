@@ -2,8 +2,6 @@
 // README at: https://github.com/devcontainers/templates/tree/main/src/dotnet
 {
 	"name": "C# (.NET) - Ollama",
-	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	// "image": "mcr.microsoft.com/devcontainers/dotnet:1-8.0-bookworm",
     "build": {
         "dockerfile": "dockerfile"
     },
@@ -44,7 +42,10 @@
 
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	"remoteUser": "vscode",
-
+    "hostRequirements": {
+        "memory": "16gb",
+        "cpus": 4
+    },
 	"mounts": [
         "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached"
 	]
