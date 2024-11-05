@@ -85,6 +85,8 @@ Currently there are labs for:
 
 ### Run in GitHub CodeSpaces
 
+1. Create a **GitHub Personal Token Access** to be used on the GH Models samples. [Get your GitHub Personal Access Token](https://github.com/settings/tokens).
+
 1. Create a new  Codespace using the `Code` button at the top of the repository.
 
 ![create Codespace](./images/17CreateCodeSpace.png)
@@ -93,9 +95,10 @@ Currently there are labs for:
 
 1. Once the Codespace is loaded, it should have all the necessary requirements to run the demo projects.
 
+
 ### Run GitHub Models samples
 
-To run the sample using GitHub Models, located in `./src/ConsoleMEAI-05-GitHubModels`, you must set a GitHub Personal Token Access ([Get your GitHub Personal Access Token](https://github.com/settings/tokens)).
+To run the sample using GitHub Models, located in `./src/ConsoleMEAI-05-GitHubModels`.
 
 Once you got your PAT, follow this steps.
 
