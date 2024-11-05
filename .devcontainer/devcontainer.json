@@ -13,7 +13,13 @@
 				"GitHub.copilot",
 				"ms-dotnettools.csdevkit"
 			]
-		}
+		},
+		"codespaces": {
+			"openFiles": [
+			"README.md",
+			"./src/videos/firetruck.mp4"
+			]
+		}		
 	},
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
@@ -34,10 +40,7 @@
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": "sudo dotnet workload update && sudo dotnet workload install aspire && sudo dotnet workload list",
-
-
-	// Configure tool-specific properties.
-	// "customizations": {},
+	"postStartCommand": "cd ./src/ConsoleMEAI-05-GitHubModels/ && dotnet run",
 
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	"remoteUser": "vscode",
