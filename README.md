@@ -180,7 +180,7 @@ dotnet run
 
 - You can expect an output similar to this one:
 
-![Run Sample using Ollama local models](./images/20OpenAIRunSample.png)
+![Run Sample using Ollama local models](./images/50CodeSpacesOllamaRunComplete.png)
 
 ## Guidance
 
