@@ -17,7 +17,7 @@ Once the Codespace is created open a terminal and download the following models 
 Download the models, run the commands
 
 ```bash
-ollama pull llava
+ollama pull llava:7b
 ollama pull llama3.2
 ollama pull phi3.5
 ```
@@ -29,7 +29,7 @@ ollama ls
 ```
 
 The output should be similar to this one:
-
+![Run Sample using MEAI and Ollama with local models](../images/40ollamals.png)
 
 ## Run the demo
 
