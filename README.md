@@ -14,7 +14,7 @@ This repository contains a series of samples on how to analyse a video using mul
 - [Microsoft.Extensions.AI.Ollama](https://www.nuget.org/packages/Microsoft.Extensions.AI.Ollama) to work with **Ollama** local models
 - [OpenAI .NET API library](https://www.nuget.org/packages/OpenAI) to work with **OpenAI APIs**.
 
-**CodeSpaces:** This project is designed to be opened in GitHub Codespaces as an easy way for anyone to try out this libraries entirely in the browser.
+**GitHub CodeSpaces:** This project is designed to be opened in GitHub Codespaces as an easy way for anyone to try out this libraries entirely in the browser.
 
 This is the OpenAI sample running in Codespaces. The sample analyze this video:
 
@@ -54,14 +54,24 @@ Currently there are labs for:
 
 ## Run sample projects
 
+1. Create a new  Codespace using the `Code` button at the top of the repository.
+
+![create Codespace](./images/17CreateCodeSpace.png)
+
+1. The Codespace createion process can take a couple of minutes.
+
+1. Once the Codespace is loaded, it should have all the necessary requirements to run the demo projects.
+
 ### Run GitHub Models Library samples
 
-To run the sample using GitHub Models, located in `.\src\ConsoleMEAI-05-GitHubModels\`, you must set your GitHub Personal Token Access in a user secret ([Get your GitHub Personal Access Token](https://github.com/settings/tokens)).
+To run the sample using GitHub Models, located in `./src/ConsoleMEAI-05-GitHubModels`, you must set a GitHub Personal Token Access ([Get your GitHub Personal Access Token](https://github.com/settings/tokens)).
+
+Once you got your PAT, follow this steps.
 
 - Navigating to the sample project folder using the command:
 
 ```bash
-cd .\src\ConsoleMEAI-05-GitHubModels\
+cd ./src/ConsoleMEAI-05-GitHubModels/
 ```
 
 - Run the project with the command:
@@ -78,12 +88,12 @@ Note: Create GitHub Personal Access Token (PAT): https://github.com/settings/tok
 
 ### Run OpenAI .NET Library samples
 
-To run the sample using OpenAI APIs, located in `.\src\ConsoleOpenAI-04-VideoAnalyzer\`, you must set your OpenAI Key in a user secret.
+To run the sample using OpenAI APIs, located in `./src/ConsoleOpenAI-04-VideoAnalyzer`, you must set your OpenAI Key in a user secret.
 
 - Navigating to the sample project folder using the command:
 
 ```bash
-cd .\src\ConsoleOpenAI-04-VideoAnalyzer\
+cd ./src/ConsoleOpenAI-04-VideoAnalyzer/
 ```
 
 - Add the user secrets running the command:
@@ -105,12 +115,12 @@ dotnet run
 
 ### Run Azure OpenAI .NET Library samples
 
-To run the sample using Azure OpenAI Services, located in `.\src\ConsoleAOAI-04-VideoAnalyzer\`, you must set your Azure OpenAI keys in a user secret.
+To run the sample using Azure OpenAI Services, located in `./src/ConsoleAOAI-04-VideoAnalyzer`, you must set your Azure OpenAI keys in a user secret.
 
 - Navigating to the sample project folder using the command:
 
 ```bash
-cd .\src\ConsoleAOAI-04-VideoAnalyzer\
+cd ./src/ConsoleAOAI-04-VideoAnalyzer/
 ```
 
 - Add the user secrets running the command:
@@ -131,7 +141,6 @@ dotnet run
 - You can expect an output similar to this one:
 
 ![Run Sample using OpenAI .NET Library](./images/20OpenAIRunSample.png)
-
 
 ### Run Ollama sample
 
