@@ -26,7 +26,9 @@ while (video.IsOpened())
     if (!video.Read(frame) || frame.Empty())
         break;
     // resize the frame to half of its size
-    Cv2.Resize(frame, frame, new OpenCvSharp.Size(frame.Width / 2, frame.Height / 2));
+    // for the ollama sample, we resize the frame to 1/4 of its size
+    // smaller images are faster to process
+    Cv2.Resize(frame, frame, new OpenCvSharp.Size(frame.Width / 3, frame.Height / 3));
     frames.Add(frame);
 }
 video.Release();
@@ -43,12 +45,15 @@ IChatClient chatClientImageAnalyzer =
 IChatClient chatClient =
     new OllamaChatClient(new Uri("http://localhost:11434/"), "llama3.2");
 
+// for the ollama process we use only 5 frames
+// change this value to get more frames for a more detailed analysis
+var numberOfFrames = 5; //PromptsHelper.NumberOfFrames;
 
 List<string> imageAnalysisResponses = new();
-int step = (int)Math.Ceiling((double)frames.Count / PromptsHelper.NumberOfFrames);
+int step = (int)Math.Ceiling((double)frames.Count / numberOfFrames);
 
 // show the total number of frames and the step to get the desired number of frames using spectre console
-SpectreConsoleOutput.DisplaySubtitle("Process", $"Get 1 frame every [{step}] to get the [{PromptsHelper.NumberOfFrames}] frames for analysis");
+SpectreConsoleOutput.DisplaySubtitle("Process", $"Get 1 frame every [{step}] to get the [{numberOfFrames}] frames for analysis");
 
 var tableImageAnalysis = new Table();
 await AnsiConsole.Live(tableImageAnalysis)
