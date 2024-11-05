@@ -176,7 +176,11 @@ dotnet run
 
 ### Run Ollama sample
 
-**Instructions Coming soon!**
+- Follow the instructions in the [Run Ollama Sample](./docs/runollamademo.md)
+
+- You can expect an output similar to this one:
+
+![Run Sample using Ollama local models](./images/20OpenAIRunSample.png)
 
 ## Guidance
 
