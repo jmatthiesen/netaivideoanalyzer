@@ -61,13 +61,14 @@ COMING SOON!
 The sample Console projects are in the folder [./src/Labs/](./src/Labs/).
 The full Aspire + Blazor solution is in the folder [./srcBlazor/](./srcBlazor/).
 
-Currently there are labs for:
+Currently there are samples for the following technologies:
 
 - [OpenAI .NET SDK](https://devblogs.microsoft.com/dotnet/announcing-the-stable-release-of-the-official-open-ai-library-for-dotnet/)
 - [Microsoft AI Extensions](https://devblogs.microsoft.com/dotnet/introducing-microsoft-extensions-ai-preview/)
 - [GitHub Models](https://devblogs.microsoft.com/dotnet/using-github-models-and-dotnet-to-build-generative-ai-apps/)
 - [Local Image analysis using Ollama](https://ollama.com/blog/vision-models)
 - [OpenCV, using OpenCVSharp](https://github.com/shimat/opencvsharp)
+- [Phi-3.5](https://aka.ms/Phi-3CookBook)
 
 ## Run sample projects
 
@@ -94,7 +95,6 @@ Currently there are labs for:
 1. The Codespace createion process can take a couple of minutes.
 
 1. Once the Codespace is loaded, it should have all the necessary requirements to run the demo projects.
-
 
 ### Run GitHub Models samples
 

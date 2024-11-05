@@ -57,4 +57,33 @@ dotnet run
 
 - You can expect an output similar to this one:
 
-![Run Sample using MEAI and Ollama with local models](../images/02FireTruck.gif)
+![Run Sample using MEAI and Ollama with local models](../images/50CodeSpacesOllamaRunComplete.png)
+
+## Update the demo to use Phi-3.5
+
+- Edit the file `./src/SpectreConsole-MEAI-01-Ollama/Program.cs`
+
+- Change the model name to `phi3.5`
+
+- Increment the number of frames to be processed to get a more detailed analysis.
+
+    ```csharp
+    //////////////////////////////////////////////////////
+    /// Microsoft.Extensions.AI using Ollama
+    //////////////////////////////////////////////////////
+    SpectreConsoleOutput.DisplayTitleH1("Video Analysis using Microsoft.Extensions.AI using Ollama");
+    
+    IChatClient chatClientImageAnalyzer =
+        new OllamaChatClient(new Uri("http://localhost:11434/"), "llava:7b");
+    IChatClient chatClient =
+        new OllamaChatClient(new Uri("http://localhost:11434/"), "phi3.5");
+    
+    // for the ollama process we use only 5 frames
+    // change this value to get more frames for a more detailed analysis
+    var numberOfFrames = 10; //PromptsHelper.NumberOfFrames;
+    
+    List<string> imageAnalysisResponses = new();
+    int step = (int)Math.Ceiling((double)frames.Count / numberOfFrames);
+    ```
+
+- Run the project again.
