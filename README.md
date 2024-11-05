@@ -207,30 +207,3 @@ This template uses Azure OpenAI Services with ApiKey and [Managed Identity](http
 ### Video Recordings
 
 [![.NET AI Community Standup - Build a Video Analyzer with OpenAI .NET Library’s Stable Release](./images/35netaishow.png)](https://www.youtube.com/live/vQr5N2E_6AM?si=Kmtq0QGNVp4OgFMZ)
-
-### 🤝 Contributing
-
-Contributions, issues and feature requests are welcome!
-
-Feel free to check [issues page](//issues).
-
-## Author
-
-👤 **Bruno Capuano**
-
-- Website: [https://elbruno.com](https://elbruno.com)
-- Twitter: [@elbruno](https://twitter.com/elbruno)
-- Github: [@elbruno](https://github.com/elbruno)
-- LinkedIn: [@elbruno](https://linkedin.com/in/elbruno)
-
-## Show your support
-
-Give a ⭐️ if this project helped you!
-
-## 📝 License
-
-Copyright &copy; 2024 [Bruno Capuano](https://github.com/elbruno).
-
-This project is [MIT](/LICENSE) licensed.
-
-***
