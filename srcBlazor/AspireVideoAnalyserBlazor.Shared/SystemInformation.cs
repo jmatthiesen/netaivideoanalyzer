@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-public class SystemInfo
+public class SystemInformation
 {
     public string OSDescription { get; set; }
     public string OSArchitecture { get; set; }
@@ -9,7 +9,17 @@ public class SystemInfo
     public string CPUInfo { get; set; }
     public string MemoryInfo { get; set; }
 
-    public static async Task<SystemInfo> GetSystemInfoAsync()
+    public override string ToString()
+    {
+        return $"OS Description: {OSDescription}\n" +
+            $"OS Architecture: {OSArchitecture}\n" +
+            $"Process Architecture: {ProcessArchitecture}\n" +
+            $"Framework Description: {FrameworkDescription}\n" +
+            $"CPU Info: {CPUInfo}\n" +
+            $"Memory Info: {MemoryInfo}";
+    }
+
+    public static async Task<SystemInformation> GetSystemInfoAsync()
     {
         // get system information, like operating system, processor, etc.
         var osDescription = RuntimeInformation.OSDescription;
@@ -32,7 +42,7 @@ public class SystemInfo
             memInfo = "Not available in Windows";
         }
 
-        return new SystemInfo
+        return new SystemInformation
         {
             OSDescription = osDescription,
             OSArchitecture = osArchitecture.ToString(),

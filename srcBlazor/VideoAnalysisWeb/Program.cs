@@ -31,7 +31,7 @@ app.MapGet("/SystemInfo", async (ILogger<Program> logger) =>
     try
     {
         logger.LogInformation("Get System information");
-        var systemInfo = await SystemInfo.GetSystemInfoAsync();
+        var systemInfo = await SystemInformation.GetSystemInfoAsync();
         logger.LogInformation("System information retrieved successfully");
 
         return Results.Json(systemInfo);
