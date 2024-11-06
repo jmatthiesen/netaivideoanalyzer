@@ -41,7 +41,7 @@ SpectreConsoleOutput.DisplayTitleH3("Video Analysis using OpenCV done!");
 SpectreConsoleOutput.DisplayTitleH1("Video Analysis using Microsoft.Extensions.AI using Ollama");
 
 IChatClient chatClientImageAnalyzer =
-    new OllamaChatClient(new Uri("http://localhost:11434/"), "hf.co/leafspark/Llama-3.2-11B-Vision-Instruct-GGUF");
+    new OllamaChatClient(new Uri("http://localhost:11434/"), "llava:7b");
 IChatClient chatClient =
     new OllamaChatClient(new Uri("http://localhost:11434/"), "llama3.2");
 

@@ -34,7 +34,9 @@ Installed with the [Visual Studio installer](https://learn.microsoft.com/en-us/d
 
 - Select the **Confirm and continue initializing my app** option.
 
-- Enter an environment name, which is used to name provisioned resources in Azure and managing different environments such as dev and prod.
+- Enter an environment name, which is used to name provisioned resources in Azure and managing different environments such as `dev` and `prod`.
+
+  ***Note:** for the current scenario we will use the environment name **`videoanalysisdev`***
 
 - In order to deploy the .NET Aspire project, authenticate to Azure AD to call the Azure resource management APIs.
 
@@ -48,7 +50,7 @@ Installed with the [Visual Studio installer](https://learn.microsoft.com/en-us/d
     azd up
     ```
 
-- When prompted, select the subscription and location the resources should be deployed to. Once these options are selected the .NET Aspire project will be deployed.
+- When prompted, **select the subscription** and **select the location** the resources should be deployed to. Once these options are selected the .NET Aspire project will be deployed.
 
 - The final line of output from the azd command is a link to the Azure Portal that shows all of the Azure resources that were deployed:
 

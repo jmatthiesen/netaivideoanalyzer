@@ -2,6 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using OpenAI;
 using OpenAI.Chat;
+using System.Runtime.InteropServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -66,6 +67,27 @@ app.MapPost("/AnalyzeVideo", async (VideoRequest request, VideoProcessor videoPr
     response.VideoFrame = $"{app.Urls.First()}/images/frame.jpg";
 
     return response;
+});
+
+app.MapGet("/SystemInfo", async (ILogger<Program> logger) =>
+{
+    try
+    {
+        logger.LogInformation("Get System information");
+        var systemInfo = await SystemInfo.GetSystemInfoAsync();
+        return Results.Json(systemInfo);
+    }
+    catch (Exception exc)
+    {
+        logger.LogError(exc, "Error retrieving system information");
+        return Results.Problem("Error retrieving system information");
+    }
+});
+
+app.MapGet("/", (ILogger<Program> logger) =>
+{
+    logger.LogInformation("Root call!");
+    return Results.Text($"Hello from Aspire Video Analyser API Service. Current date and time is {DateTime.Now}");
 });
 
 try
