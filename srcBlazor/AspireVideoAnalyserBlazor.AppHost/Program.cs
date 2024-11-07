@@ -2,7 +2,7 @@ var builder = DistributedApplication.CreateBuilder(args);
 
 var chatDeploymentName = "chat";
 var aoai = builder.AddAzureOpenAI("openai")
-    .AddDeployment(new AzureOpenAIDeployment(chatDeploymentName, "gpt-4o-mini", "2024-07-18", "GlobalStandard", 4));
+    .AddDeployment(new AzureOpenAIDeployment(chatDeploymentName, "gpt-4o-mini", "2024-07-18", "GlobalStandard", 8));
 
 var apiService = builder.AddProject<Projects.AspireVideoAnalyserBlazor_ApiService>("apiservice")
     .WithReference(aoai)
