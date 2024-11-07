@@ -86,6 +86,32 @@ Now you can select a video in your local machine, and upload the video to get a 
 
 ![Blazor Demo](../images/50BlazorDemo.gif)
 
+## TroubleShooting
+
+If your client Blazor App can't connect to the API Service app, you may need to check the following scenarius.
+
+### CORS
+
+Enable CORS in the API Service following these steps:
+
+- In Resource Group in Azure, access to the `apiservice` Container App.
+
+- In the `Settings` menu, access the CORS option.
+
+- Check the `Access-Control-Allow-Credentials` and Save. This process should take a couple of seconds.
+
+- Stop and Start the Container App.
+
+  ![Blazor Demo](../images/75ApiServiceEnableCors.png)
+
+### Validate Azure OpenAI roles
+
+Validate that your user have the correct [Azure OpenAI roles](https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/role-based-access-control#azure-openai-roles) in the Resource Group, or at the Subscription Level.
+
+Once the rigth roles assigned, the user should have a list similar to this one:
+
+![User with the correct role assignments](../images/76AzureAssigments.png)
+
 ## ApiService Base Image for Azure Container Apps
 
 The apiservice project uses a specific image that allows the use of OpenCVSharp4 in linux in Azure Container Apps.
