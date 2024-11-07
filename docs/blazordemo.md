@@ -99,7 +99,11 @@ The `AspireVideoAnalyserBlazor.ApiService` project define this image as the **<C
 </Project>
 ```
 
-The docker file is published using the github action [Publish Docker image for .NET 8, OpenCVSharp4 and .NET Aspire](../.github/workflows/publishdockerimage.yml). The action is based on [Publishing images to Docker Hub](https://docs.github.com/en/actions/use-cases-and-examples/publishing-packages/publishing-docker-images#publishing-images-to-docker-hub).
+***Note:** The ContainerBaseImage official doc is [here](https://learn.microsoft.com/en-us/dotnet/core/docker/publish-as-container?pivots=dotnet-8-0#containerbaseimage)*
+
+The docker file is published using the github action [Publish Docker image for .NET 8, OpenCVSharp4 and .NET Aspire](../.github/workflows/publishdockerimage.yml). 
+
+The action is based on [Publishing images to Docker Hub](https://docs.github.com/en/actions/use-cases-and-examples/publishing-packages/publishing-docker-images#publishing-images-to-docker-hub).
 
 ![Docker Action run and image published to Docker Hub](../images/70ApiServiceImageDockerPushToDockerHub.png)
 
