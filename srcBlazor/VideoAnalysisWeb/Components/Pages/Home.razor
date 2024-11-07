@@ -289,7 +289,7 @@
 
             videoRequest.VideoBytes = videoFileBytes;
 
-            videoResponse = await VideoAnalysisApi.AnalyzeVideoAsync(videoRequest);
+            videoResponse = await VideoAnalysisApi.AnalyzeVideoAsync(videoRequest, Logger);
 
             console.Log($"Analyze video done!");
 
