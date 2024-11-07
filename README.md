@@ -21,6 +21,7 @@ This repository contains a series of samples on how to analyse a video using mul
 - [Features](#features)
 - [Architecture diagram](#architecture-diagram)
 - [Getting started](#getting-started)
+- [Deploying to Azure](#deploying)
 - [Run Sample Projects](#run-sample-projects)
   - [Video Analysis Sample Projects Overview](#video-analysis-sample-projects-overview)
   - [Run in GitHub CodeSpaces](#run-in-github-codespaces)
@@ -70,6 +71,12 @@ Currently there are samples for the following technologies:
 - [OpenCV, using OpenCVSharp](https://github.com/shimat/opencvsharp)
 - [Phi-3.5](https://aka.ms/Phi-3CookBook)
 
+## Deploying
+
+Once you've opened the project in [Codespaces](#run-in-github-codespaces), or [locally](#run-locally), you can deploy it to Azure.
+
+Follow the steps in the **[Aspire and Blazor Demo, deploy to Azure](./docs/blazordemo.md)** to deploy the solution to Azure and test the project.
+
 ## Run sample projects
 
 ### Video Analysis Sample Projects Overview
@@ -95,6 +102,25 @@ Currently there are samples for the following technologies:
 1. The Codespace createion process can take a couple of minutes.
 
 1. Once the Codespace is loaded, it should have all the necessary requirements to run the demo projects.
+
+### Run Locally
+
+To run the project locally, you'll need to make sure the following tools are installed:
+
+    * [.NET 8](https://dotnet.microsoft.com/downloads/)
+    * [Git](https://git-scm.com/downloads)
+    * [Azure Developer CLI (azd)](https://aka.ms/install-azd)
+    * [VS Code](https://code.visualstudio.com/Download) or [Visual Studio](https://visualstudio.microsoft.com/downloads/)
+        * If using VS Code, install the [C# Dev Kit](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit)
+
+To run the Aspire and Blazor sample, you also need Aspire.
+
+    * [.NET 8.0](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
+    * .NET Aspire workload:
+    Installed with the [Visual Studio installer](https://learn.microsoft.com/en-us/dotnet/aspire/fundamentals/setup-tooling?tabs=windows&pivots=visual-studio#install-net-aspire) or the [.NET CLI workload](https://learn.microsoft.com/en-us/dotnet/aspire/fundamentals/setup-tooling?tabs=windows&pivots=visual-studio#install-net-aspire).
+    * An OCI compliant container runtime, such as:
+      * [Docker Desktop](https://www.docker.com/products/docker-desktop/) or [Podman](https://podman.io/).
+    * [Azure Developer CLI](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/install-azd?tabs=winget-windows%2Cbrew-mac%2Cscript-linux&pivots=os-windows) installed locally.
 
 ### Run GitHub Models samples
 
