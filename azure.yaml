@@ -4,5 +4,5 @@ name: aspirevideoanalyserblazor-apphost
 services:  
   app:
     language: dotnet
-    project: ./AspireVideoAnalyserBlazor.AppHost.csproj
+    project: ./srcBlazor/AspireVideoAnalyserBlazor.AppHost/AspireVideoAnalyserBlazor.AppHost.csproj
     host: containerapp

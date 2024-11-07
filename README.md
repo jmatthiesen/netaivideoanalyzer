@@ -75,7 +75,29 @@ Currently there are samples for the following technologies:
 
 Once you've opened the project in [Codespaces](#run-in-github-codespaces), or [locally](#run-locally), you can deploy it to Azure.
 
-Follow the steps in the **[Aspire and Blazor Demo, deploy to Azure](./docs/blazordemo.md)** to deploy the solution to Azure and test the project.
+From a Terminal window, open the folder with the clone of this repo and run the following commands.
+
+1. Login to Azure:
+
+    ```shell
+    azd auth login
+    ```
+
+2. Provision and deploy all the resources:
+
+    ```shell
+    azd up
+    ```
+
+    It will prompt you to provide an `azd` environment name (like "videoanalyserdev"), select a subscription from your Azure account, and select a [location where OpenAI is available](https://azure.microsoft.com/explore/global-infrastructure/products-by-region/?products=cognitive-services&regions=all) (like "eastus2").
+
+     Then it will provision the resources in your account and deploy the latest code. If you get an error or timeout with deployment, changing the location can help, as there may be availability constraints for the OpenAI resource.
+
+3. When `azd` has finished deploying, you'll see an endpoint URI in the command output. Visit that URI, and you should see the chat app! 🎉
+
+  ![Azure Resource Deployment Complete Log console](./images/66ConsoleLogDeployComplete.png)
+
+The **[Aspire and Blazor Demo deploy to Azure page](./docs/blazordemo.md)** has more information on how to deploy the solution to Azure and test the project.
 
 ## Run sample projects
 
