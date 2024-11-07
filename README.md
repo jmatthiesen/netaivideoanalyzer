@@ -129,20 +129,18 @@ The **[Aspire and Blazor Demo deploy to Azure page](./docs/blazordemo.md)** has 
 
 To run the project locally, you'll need to make sure the following tools are installed:
 
-    * [.NET 8](https://dotnet.microsoft.com/downloads/)
-    * [Git](https://git-scm.com/downloads)
-    * [Azure Developer CLI (azd)](https://aka.ms/install-azd)
-    * [VS Code](https://code.visualstudio.com/Download) or [Visual Studio](https://visualstudio.microsoft.com/downloads/)
-        * If using VS Code, install the [C# Dev Kit](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit)
+- [.NET 8](https://dotnet.microsoft.com/downloads/)
+- [Git](https://git-scm.com/downloads)
+- [Azure Developer CLI (azd)](https://aka.ms/install-azd)
+- [VS Code](https://code.visualstudio.com/Download) or [Visual Studio](https://visualstudio.microsoft.com/downloads/)
+  - If using VS Code, install the [C# Dev Kit](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit)
 
-To run the Aspire and Blazor sample, you also need Aspire.
+To run the Aspire and Blazor sample, you also need **.NET Aspire**.
 
-    * [.NET 8.0](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
-    * .NET Aspire workload:
-    Installed with the [Visual Studio installer](https://learn.microsoft.com/en-us/dotnet/aspire/fundamentals/setup-tooling?tabs=windows&pivots=visual-studio#install-net-aspire) or the [.NET CLI workload](https://learn.microsoft.com/en-us/dotnet/aspire/fundamentals/setup-tooling?tabs=windows&pivots=visual-studio#install-net-aspire).
-    * An OCI compliant container runtime, such as:
-      * [Docker Desktop](https://www.docker.com/products/docker-desktop/) or [Podman](https://podman.io/).
-    * [Azure Developer CLI](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/install-azd?tabs=winget-windows%2Cbrew-mac%2Cscript-linux&pivots=os-windows) installed locally.
+- .NET Aspire workload:
+Installed with the [Visual Studio installer](https://learn.microsoft.com/en-us/dotnet/aspire/fundamentals/setup-tooling?tabs=windows&pivots=visual-studio#install-net-aspire) or the [.NET CLI workload](https://learn.microsoft.com/en-us/dotnet/aspire/fundamentals/setup-tooling?tabs=windows&pivots=visual-studio#install-net-aspire).
+- An OCI compliant container runtime, such as:
+  * [Docker Desktop](https://www.docker.com/products/docker-desktop/) or [Podman](https://podman.io/).
 
 ### Run GitHub Models samples
 
