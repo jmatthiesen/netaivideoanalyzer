@@ -39,7 +39,7 @@ resource cognitiveServicesAccountDeployment_6E9woetGC 'Microsoft.CognitiveServic
   name: 'chat'
   sku: {
     name: 'GlobalStandard'
-    capacity: 4
+    capacity: 8
   }
   properties: {
     model: {
