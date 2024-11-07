@@ -66,16 +66,25 @@ Installed with the [Visual Studio installer](https://learn.microsoft.com/en-us/d
 
   - Aspire Dashboard: `https://aspire-dashboard.<sampleurl>.azurecontainerapps.io`
 
-- The Deployment is complete!
+    ![Azure Resource Deployment Complete Log console](../images/66ConsoleLogDeployComplete.png)
+
+- **The Deployment is complete!**
 
 ## Test the application
 
-Open the Aspire Dashboard url. Other option is to access the created resource in Azure. Navigate to the webfrontend container app and open the dashboard from the container app panel.
+Open the Aspire Dashboard url from the comsole log.
 
-In the Overview section, launch the Aspire Dashboard.
+Other option is to access the created resource in Azure. Navigate to the webfrontend container app and open the dashboard from the container app panel. In the Overview section, launch the Aspire Dashboard.
 
 ![Azure Container App WebFrontEnd dashboard](../images/68AzureCAWebFrontEnd.png)
 
+The Aspire Dashboard will display the 2 running services: apiservice and webfrontend. Navigate to the webfrontend service.
+
+![Navigate to the webfrontend service](../images/69AspireDashboardDeployedInAzure.png)
+
+Now you can select a video in your local machine, and upload the video to get a description. You can also define the **number of sample frames** that are going to be used for the video analysis, and the **system prompt** and user **prompt used** to analyze the video.
+
+![Blazor Demo](../images/50BlazorDemo.gif)
 
 ## ApiService Base Image for Azure Container Apps
 
@@ -106,6 +115,3 @@ The docker file is published using the github action [Publish Docker image for .
 The action is based on [Publishing images to Docker Hub](https://docs.github.com/en/actions/use-cases-and-examples/publishing-packages/publishing-docker-images#publishing-images-to-docker-hub).
 
 ![Docker Action run and image published to Docker Hub](../images/70ApiServiceImageDockerPushToDockerHub.png)
-
-
-
