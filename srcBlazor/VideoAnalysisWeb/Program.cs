@@ -21,16 +21,27 @@ builder.Services.AddHttpClient<VideoAnalysisApiClient>(client =>
     // This URL uses "https+http://" to indicate HTTPS is preferred over HTTP.
     // Learn more about service discovery scheme resolution at https://aka.ms/dotnet/sdschemes.
     client.BaseAddress = new("https+http://apiservice");
-})
-    .AddStandardResilienceHandler(config =>
-    {
-        TimeSpan timeSpan = TimeSpan.FromMinutes(2);
-        config.AttemptTimeout.Timeout = timeSpan;
-        config.CircuitBreaker.SamplingDuration = timeSpan * 2;
-        config.TotalRequestTimeout.Timeout = timeSpan * 3;
-    });
+});
+   
 
 var app = builder.Build();
+
+app.MapGet("/SystemInfo", async (ILogger<Program> logger) =>
+{
+    try
+    {
+        logger.LogInformation("Get System information");
+        var systemInfo = await SystemInformation.GetSystemInfoAsync();
+        logger.LogInformation("System information retrieved successfully");
+
+        return Results.Json(systemInfo);
+    }
+    catch (Exception exc)
+    {
+        logger.LogError(exc, "Error retrieving system information");
+        return Results.Problem("Error retrieving system information");
+    }
+});
 
 app.MapDefaultEndpoints();
 
