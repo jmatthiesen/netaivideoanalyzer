@@ -54,5 +54,5 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Display registry and image name
-        run: echo "Registry:elbruno, Image Name: ubuntu22-dotnet8-opencv4.7.0:${{ env.DATE_TAG }}"
+        run: echo "ubuntu22-dotnet8-opencv4.7.0:${{ env.DATE_TAG }}"
 
