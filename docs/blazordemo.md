@@ -68,6 +68,15 @@ Installed with the [Visual Studio installer](https://learn.microsoft.com/en-us/d
 
 - The Deployment is complete!
 
+## Test the application
+
+Open the Aspire Dashboard url. Other option is to access the created resource in Azure. Navigate to the webfrontend container app and open the dashboard from the container app panel.
+
+In the Overview section, launch the Aspire Dashboard.
+
+![Azure Container App WebFrontEnd dashboard](../images/68AzureCAWebFrontEnd.png)
+
+
 ## ApiService Base Image for Azure Container Apps
 
 The apiservice project uses a specific image that allows the use of OpenCVSharp4 in linux in Azure Container Apps.
@@ -90,13 +99,9 @@ The `AspireVideoAnalyserBlazor.ApiService` project define this image as the **<C
 </Project>
 ```
 
+The docker file is published using the github action [Publish Docker image for .NET 8, OpenCVSharp4 and .NET Aspire](../.github/workflows/publishdockerimage.yml). The action is based on [Publishing images to Docker Hub](https://docs.github.com/en/actions/use-cases-and-examples/publishing-packages/publishing-docker-images#publishing-images-to-docker-hub).
 
-## Test the application
+![Docker Action run and image published to Docker Hub](../images/70ApiServiceImageDockerPushToDockerHub.png)
 
-Open the Aspire Dashboard url. Other option is to access the created resource in Azure. Navigate to the webfrontend container app and open the dashboard from the container app panel.
-
-In the Overview section, launch the Aspire Dashboard.
-
-![Azure Container App WebFrontEnd dashboard](../images/68AzureCAWebFrontEnd.png)
 
 
