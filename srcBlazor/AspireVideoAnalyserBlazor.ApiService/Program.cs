@@ -1,10 +1,6 @@
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
-using Microsoft.Extensions.Logging;
 using OpenAI;
 using OpenAI.Chat;
-using System.Runtime.InteropServices;
-using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -112,7 +108,7 @@ async Task<SystemInformation> GetSystemInfo(ILogger<Program> logger)
     }
     catch (Exception exc)
     {
-        logger.LogError(exc, "Error retrieving system information");        
+        logger.LogError(exc, "Error retrieving system information");
     }
     return systemInfo;
 }

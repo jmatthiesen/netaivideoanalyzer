@@ -80,7 +80,7 @@ public class VideoProcessor(IConfiguration config, ILogger logger, ChatClient ch
         }
 
         // send the messages to the chat client
-        _logger.LogInformation($"Sending messages to the chat client");
+        _logger.LogInformation($"Sending messages to the chat client [CompleteChatAsync]");
         var chatResponse = await _chatClient.CompleteChatAsync(messages: messages);
         _logger.LogInformation($"Chat response: {chatResponse.Value.Content[0].Text}");
         return chatResponse.Value.Content[0].Text!;
