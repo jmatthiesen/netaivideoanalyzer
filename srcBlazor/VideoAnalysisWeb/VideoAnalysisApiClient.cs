@@ -8,9 +8,12 @@ public class VideoAnalysisApiClient
         httpClient.Timeout = TimeSpan.FromMinutes(5);
     }
 
-    public async Task<VideoResponse?> AnalyzeVideoAsync(VideoRequest videoRequest, CancellationToken cancellationToken = default)
+    public async Task<VideoResponse?> AnalyzeVideoAsync(VideoRequest videoRequest, ILogger<Index> logger, CancellationToken cancellationToken = default)
     {
         VideoResponse? videoResponse = null;
+
+        logger.LogInformation("Analyzing video {VideoFileName}", videoRequest.VideoFileName);
+        logger.LogInformation($"API Service Base Address: {httpClient.BaseAddress}");
 
         var response = await httpClient.PostAsJsonAsync<VideoRequest>("/AnalyzeVideo", videoRequest, cancellationToken);
 
