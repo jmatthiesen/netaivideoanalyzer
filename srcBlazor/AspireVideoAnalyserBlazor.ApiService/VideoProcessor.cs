@@ -81,12 +81,19 @@ public class VideoProcessor(IConfiguration config, ILogger logger, ChatClient ch
         }
 
         //var chatResponse = await _chatClient.CompleteChatAsync(messages: messages);
-
-        // send the messages to the chat client
-        logger.LogInformation($"Sending messages to the chat client [CompleteChat]");
-        ChatCompletion chatResponse = chatClient.CompleteChat(messages: messages);
-        logger.LogInformation($"Chat response: {chatResponse.Content[0].Text}");
-        return chatResponse.Content[0].Text!;
+        try
+        {
+            // send the messages to the chat client
+            logger.LogInformation($"Sending messages to the chat client [CompleteChat]");
+            ChatCompletion chatResponse = chatClient.CompleteChat(messages: messages);
+            logger.LogInformation($"Chat response: {chatResponse.Content[0].Text}");
+            return chatResponse.Content[0].Text!;
+        }
+        catch (Exception exc)
+        {
+            logger.LogError($"Error completing chat: {exc.Message}");
+            throw;
+        }
     }
 
     private void SaveFirstFrame(Mat videoFrame)
