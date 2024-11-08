@@ -42,7 +42,7 @@ resource chat 'Microsoft.CognitiveServices/accounts/deployments@2024-10-01' = {
     }
   }
   sku: {
-    name: 'Global Standard'
+    name: 'GlobalStandard'
     capacity: 10
   }
   parent: openai

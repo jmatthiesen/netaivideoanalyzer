@@ -5,7 +5,7 @@ var aoai = builder.AddAzureOpenAI("openai")
     .AddDeployment(new AzureOpenAIDeployment(chatDeploymentName, 
     "gpt-4o", //"gpt-4o-mini", 
     "2024-05-13", //"2024-07-18", 
-    "Global Standard", 
+    "GlobalStandard", 
     10));
 
 var apiService = builder.AddProject<Projects.AspireVideoAnalyserBlazor_ApiService>("apiservice")
