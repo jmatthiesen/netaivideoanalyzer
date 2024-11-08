@@ -1,46 +1,39 @@
-targetScope = 'resourceGroup'
-
-@description('')
+@description('The location for the resource(s) to be deployed.')
 param location string = resourceGroup().location
 
-@description('')
 param principalId string
 
-@description('')
 param principalType string
 
-
-resource cognitiveServicesAccount_wXAGTFUId 'Microsoft.CognitiveServices/accounts@2023-05-01' = {
-  name: toLower(take('openai${uniqueString(resourceGroup().id)}', 24))
+resource openai 'Microsoft.CognitiveServices/accounts@2024-10-01' = {
+  name: take('openai-${uniqueString(resourceGroup().id)}', 64)
   location: location
   kind: 'OpenAI'
-  sku: {
-    name: 'S0'
-  }
   properties: {
     customSubDomainName: toLower(take(concat('openai', uniqueString(resourceGroup().id)), 24))
     publicNetworkAccess: 'Enabled'
     disableLocalAuth: true
   }
+  sku: {
+    name: 'S0'
+  }
+  tags: {
+    'aspire-resource-name': 'openai'
+  }
 }
 
-resource roleAssignment_Hsk8rxWY8 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  scope: cognitiveServicesAccount_wXAGTFUId
-  name: guid(cognitiveServicesAccount_wXAGTFUId.id, principalId, subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'a001fd3d-188f-4b5d-821b-7da978bf7442'))
+resource openai_CognitiveServicesOpenAIContributor 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  name: guid(openai.id, principalId, subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'a001fd3d-188f-4b5d-821b-7da978bf7442'))
   properties: {
-    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'a001fd3d-188f-4b5d-821b-7da978bf7442')
     principalId: principalId
+    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'a001fd3d-188f-4b5d-821b-7da978bf7442')
     principalType: principalType
   }
+  scope: openai
 }
 
-resource cognitiveServicesAccountDeployment_6E9woetGC 'Microsoft.CognitiveServices/accounts/deployments@2023-05-01' = {
-  parent: cognitiveServicesAccount_wXAGTFUId
+resource chat 'Microsoft.CognitiveServices/accounts/deployments@2024-10-01' = {
   name: 'chat'
-  sku: {
-    name: 'GlobalStandard'
-    capacity: 10
-  }
   properties: {
     model: {
       format: 'OpenAI'
@@ -48,6 +41,11 @@ resource cognitiveServicesAccountDeployment_6E9woetGC 'Microsoft.CognitiveServic
       version: '2024-05-13'
     }
   }
+  sku: {
+    name: 'Global Standard'
+    capacity: 10
+  }
+  parent: openai
 }
 
-output connectionString string = 'Endpoint=${cognitiveServicesAccount_wXAGTFUId.properties.endpoint}'
+output connectionString string = 'Endpoint=${openai.properties.endpoint}'
