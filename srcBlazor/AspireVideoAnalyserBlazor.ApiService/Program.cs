@@ -55,7 +55,9 @@ app.MapPost("/AnalyzeVideo", async (VideoRequest request, ILogger<Program> logge
     };
 
     // define the complete url for the video frame using the current app running url
-    response.VideoFrame = $"{app.Urls.First()}/images/frame.jpg";
+    //response.VideoFrame = $"{app.Urls.First()}/images/frame.jpg";
+
+    logger.LogInformation($"Video Response: {response}");
 
     return response;
 });

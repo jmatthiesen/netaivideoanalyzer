@@ -8,7 +8,7 @@ public class VideoAnalysisApiClient
         httpClient.Timeout = TimeSpan.FromMinutes(5);
     }
 
-    public async Task<VideoResponse?> AnalyzeVideoAsync(VideoRequest videoRequest, ILogger<Index> logger, CancellationToken cancellationToken = default)
+    internal async Task<VideoResponse?> AnalyzeVideoAsync(VideoRequest videoRequest, ILogger<Program> logger, CancellationToken cancellationToken = default)
     {
         VideoResponse? videoResponse = null;
 
@@ -17,10 +17,16 @@ public class VideoAnalysisApiClient
 
         var response = await httpClient.PostAsJsonAsync<VideoRequest>("/AnalyzeVideo", videoRequest, cancellationToken);
 
-        if (response != null) {
+        if (response != null)
+        {
             response.EnsureSuccessStatusCode();
             videoResponse = await response.Content.ReadFromJsonAsync<VideoResponse>(cancellationToken: cancellationToken);
+            videoResponse.VideoFrame = httpClient.BaseAddress + videoResponse.VideoFrame;
         }
+
+
+        logger.LogInformation($"Video Response: {videoResponse}");
+
         return videoResponse;
     }
 }
