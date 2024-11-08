@@ -13,13 +13,14 @@ properties:
       dotnet:
         autoConfigureDataProtection: true
     ingress:
+      enabled: true
+      additionalPortMappings:
+        - targetPort: 0
+          external: false
       external: true
-      targetPort: 0
-      exposedPort: 0
-      transport: auto
+      targetPort: {{ targetPortOrDefault 0 }}
+      transport: https
       allowInsecure: false
-      clientCertificateMode: ignore
-      stickySessionMode: none
     registries:
       - server: {{ .Env.AZURE_CONTAINER_REGISTRY_ENDPOINT }}
         identity: {{ .Env.AZURE_CONTAINER_REGISTRY_MANAGED_IDENTITY_ID }}
