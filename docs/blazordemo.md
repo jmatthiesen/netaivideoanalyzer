@@ -98,10 +98,6 @@ Reset the API Service Ingress configuration following these steps:
 
 - In the `Settings` menu, access the Ingress option.
 
-- Disable Ingress and save the changes.
-
-- Enable Ingress.
-
 - Validate the following values
 
   - `Accepting Traffic from anywhere` is selected.
@@ -111,7 +107,7 @@ Reset the API Service Ingress configuration following these steps:
   - `Insecure Connections` is not checked.
   - `Target Port` is `0`.
 
-- Save the changes.
+- Make the necessary changes and Save.
 
 - Restart the Container App.
 
