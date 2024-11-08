@@ -12,8 +12,7 @@ public class VideoAnalysisApiClient
     {
         VideoResponse? videoResponse = null;
 
-        logger.LogInformation("Analyzing video {VideoFileName}", videoRequest.VideoFileName);
-        logger.LogInformation($"API Service Base Address: {httpClient.BaseAddress}");
+        logger.LogInformation("Analyzing video async {VideoFileName}", videoRequest.VideoFileName);
 
         var response = await httpClient.PostAsJsonAsync<VideoRequest>("/AnalyzeVideo", videoRequest, cancellationToken);
 
@@ -21,9 +20,7 @@ public class VideoAnalysisApiClient
         {
             response.EnsureSuccessStatusCode();
             videoResponse = await response.Content.ReadFromJsonAsync<VideoResponse>(cancellationToken: cancellationToken);
-            videoResponse.VideoFrame = httpClient.BaseAddress.AbsoluteUri + videoResponse.VideoFrame;
         }
-
 
         logger.LogInformation($"Video Response: {videoResponse}");
 

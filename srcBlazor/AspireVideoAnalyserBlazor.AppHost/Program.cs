@@ -10,6 +10,7 @@ var aoai = builder.AddAzureOpenAI("openai")
 
 var apiService = builder.AddProject<Projects.AspireVideoAnalyserBlazor_ApiService>("apiservice")
     .WithReference(aoai)
+    .WithExternalHttpEndpoints()
     .WithEnvironment("AI_ChatDeploymentName", chatDeploymentName);
 
 builder.AddProject<Projects.VideoAnalysisWeb>("webfrontend")

@@ -39,13 +39,13 @@ resource cognitiveServicesAccountDeployment_6E9woetGC 'Microsoft.CognitiveServic
   name: 'chat'
   sku: {
     name: 'GlobalStandard'
-    capacity: 8
+    capacity: 10
   }
   properties: {
     model: {
       format: 'OpenAI'
-      name: 'gpt-4o-mini'
-      version: '2024-07-18'
+      name: 'gpt-4o'
+      version: '2024-05-13'
     }
   }
 }

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.FileProviders;
 using OpenAI;
 using OpenAI.Chat;
@@ -30,7 +31,7 @@ var app = builder.Build();
 app.UseExceptionHandler();
 
 // create a new endpoint that receives a VideoRequest and returns a VideoResponse
-app.MapPost("/AnalyzeVideo", async (VideoRequest request, ILogger<Program> logger, ChatClient client) =>
+app.MapPost("/AnalyzeVideo", async (HttpContext httpContext, VideoRequest request, ILogger<Program> logger, ChatClient client) =>
 {
     if (request.NumberOfFramesToBeProcessed <= 1)
         request.NumberOfFramesToBeProcessed = 10;
@@ -54,8 +55,12 @@ app.MapPost("/AnalyzeVideo", async (VideoRequest request, ILogger<Program> logge
         VideoFrame = "/images/frame.jpg"
     };
 
+    // get the request URL
+    var requestUrl = $"{httpContext.Request.Scheme}://{httpContext.Request.Host}{httpContext.Request.PathBase}";
+    logger.LogInformation($"Request URL: {requestUrl}");
+
     // define the complete url for the video frame using the current app running url
-    //response.VideoFrame = $"{app.Urls.First()}/images/frame.jpg";
+    response.VideoFrame = $"{requestUrl}/images/frame.jpg";
 
     logger.LogInformation($"Video Response: {response}");
 
@@ -65,6 +70,12 @@ app.MapPost("/AnalyzeVideo", async (VideoRequest request, ILogger<Program> logge
 app.MapGet("/SystemInfo", async (ILogger<Program> logger) =>
 {
     return Results.Json(await GetSystemInfo(logger));
+});
+
+app.MapGet("/", async (ILogger<Program> logger) =>
+{
+    logger.LogInformation("API Service is running");
+    return Results.Json($".NET Video Analyzer API Service - {DateTime.Now}");
 });
 
 app.MapGet("/AICheck", (ILogger<Program> logger, ChatClient client) =>
