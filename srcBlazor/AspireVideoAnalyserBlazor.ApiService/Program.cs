@@ -24,40 +24,33 @@ builder.Services.AddSingleton(serviceProvider =>
     return chatClient;
 });
 
-// add an instance of VideoProcessor
-builder.Services.AddSingleton(serviceProvider =>
-{
-    return new VideoProcessor(
-        serviceProvider.GetService<IConfiguration>()!,
-        serviceProvider.GetRequiredService<ILogger<Program>>()!,
-        serviceProvider.GetService<ChatClient>()!);
-});
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 app.UseExceptionHandler();
 
 // create a new endpoint that receives a VideoRequest and returns a VideoResponse
-app.MapPost("/AnalyzeVideo", async (VideoRequest request, VideoProcessor videoProcessor, ILogger<Program> logger) =>
+app.MapPost("/AnalyzeVideo", async (VideoRequest request, ILogger<Program> logger, ChatClient client) =>
 {
     if (request.NumberOfFramesToBeProcessed <= 1)
         request.NumberOfFramesToBeProcessed = 10;
 
-    List<ChatMessage> messages = videoProcessor.CreateMessages(request.SystemPrompt, request.UserPrompt, app.Configuration);
+    VideoProcessor videoProcessor = new VideoProcessor(app.Configuration, logger, client);
+
+    List<ChatMessage> messages = videoProcessor.CreateMessages(request.SystemPrompt, request.UserPrompt);
 
     // extract the frames from the video
     var frames = videoProcessor.ExtractVideoFrames(request.VideoBytes);
 
     // process the frames
-    var processedFrames = await videoProcessor.AnalyzeVideoAsync(frames, request.NumberOfFramesToBeProcessed, messages);
+    var videoDescription = videoProcessor.AnalyzeVideoAsync(frames, request.NumberOfFramesToBeProcessed, messages, client);
 
     // create a response
     var response = new VideoResponse
     {
         ProcessedFrames = request.NumberOfFramesToBeProcessed,
         TotalFrames = frames.Count,
-        VideoDescription = processedFrames,
+        VideoDescription = videoDescription,
         VideoFrame = "/images/frame.jpg"
     };
 
@@ -70,6 +63,24 @@ app.MapPost("/AnalyzeVideo", async (VideoRequest request, VideoProcessor videoPr
 app.MapGet("/SystemInfo", async (ILogger<Program> logger) =>
 {
     return Results.Json(await GetSystemInfo(logger));
+});
+
+app.MapGet("/AICheck", (ILogger<Program> logger, ChatClient client) =>
+{
+    logger.LogInformation("Checking AI service");
+
+    ChatCompletion completion = client.CompleteChat(new UserChatMessage("Please solve 2 + 2."));
+
+    logger.LogInformation($"Response Finish Reason: {completion.FinishReason}");
+    logger.LogInformation($"completion.Content[0].Text: {completion.Content[0].Text}");
+
+    var i = 0;
+    foreach (var message in completion.Content)
+    {
+        logger.LogInformation($"Message {i}: {message.Text}");
+        i++;
+    }
+    return Results.Json(completion!);
 });
 
 try

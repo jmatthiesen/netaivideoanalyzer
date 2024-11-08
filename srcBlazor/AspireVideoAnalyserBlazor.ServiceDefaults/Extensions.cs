@@ -29,10 +29,11 @@ public static class Extensions
             //http.AddStandardResilienceHandler();
              http.AddStandardResilienceHandler(config =>
               {
-                  TimeSpan timeSpan = TimeSpan.FromMinutes(2);
+                  TimeSpan timeSpan = TimeSpan.FromMinutes(1);
                   config.AttemptTimeout.Timeout = timeSpan;
                   config.CircuitBreaker.SamplingDuration = timeSpan * 2;
                   config.TotalRequestTimeout.Timeout = timeSpan * 3;
+                  config.Retry.MaxRetryAttempts = 1;
               });
 
             // Turn on service discovery by default

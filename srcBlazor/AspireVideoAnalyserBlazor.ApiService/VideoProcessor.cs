@@ -2,13 +2,14 @@
 using OpenAI.Chat;
 using OpenCvSharp;
 
+
 public class VideoProcessor(IConfiguration config, ILogger logger, ChatClient chatClient)
 {
-    private IConfiguration _config = config;
-    private ILogger _logger = logger;
-    private ChatClient _chatClient = chatClient;
+    private readonly IConfiguration config = config;
+    private readonly ILogger logger = logger;
+    private readonly ChatClient chatClient = chatClient;
 
-    public List<ChatMessage> CreateMessages(string systemPrompt, string userPrompt, IConfiguration config)
+    public List<ChatMessage> CreateMessages(string systemPrompt, string userPrompt)
     {
         var messages = new List<ChatMessage>();
 
@@ -25,7 +26,7 @@ public class VideoProcessor(IConfiguration config, ILogger logger, ChatClient ch
 
     public List<Mat> ExtractVideoFrames(byte[] videoBytes)
     {
-        _logger.LogInformation("Extracting video frames");
+        logger.LogInformation("Extracting video frames");
         // Convert the video bytes to a file
         var videoPath = Path.Combine(Path.GetTempPath(), "video.mp4");
         File.WriteAllBytes(videoPath, videoBytes);
@@ -47,13 +48,13 @@ public class VideoProcessor(IConfiguration config, ILogger logger, ChatClient ch
         // delete the video file
         File.Delete(videoPath);
 
-        _logger.LogInformation($"Video file has total of [{frames.Count}] video frames");
+        logger.LogInformation($"Video file has total of [{frames.Count}] video frames");
         return frames;
     }
 
-    public async Task<string> AnalyzeVideoAsync(List<Mat> videoFrames, int numberOfFrames, List<ChatMessage> messages)
+    public string AnalyzeVideoAsync(List<Mat> videoFrames, int numberOfFrames, List<ChatMessage> messages, ChatClient chatClient)
     {
-        _logger.LogInformation($"Analyzing video with [{videoFrames.Count}] total frames, processing [{numberOfFrames}] frames for analysing.");
+        logger.LogInformation($"Analyzing video with [{videoFrames.Count}] total frames, processing [{numberOfFrames}] frames for analysing.");
         bool isFirstFrame = true;
 
         int step = (int)Math.Ceiling((double)videoFrames.Count / numberOfFrames);
@@ -76,29 +77,31 @@ public class VideoProcessor(IConfiguration config, ILogger logger, ChatClient ch
                 imageBytesMediaType: "image/jpeg");
             var message = new UserChatMessage(imageContentPart);
             messages.Add(message);
-            _logger.LogInformation($"Added image content to the message, frame [{i}]");
+            logger.LogInformation($"Added image content to the message, frame [{i}]");
         }
 
+        //var chatResponse = await _chatClient.CompleteChatAsync(messages: messages);
+
         // send the messages to the chat client
-        _logger.LogInformation($"Sending messages to the chat client [CompleteChatAsync]");
-        var chatResponse = await _chatClient.CompleteChatAsync(messages: messages);
-        _logger.LogInformation($"Chat response: {chatResponse.Value.Content[0].Text}");
-        return chatResponse.Value.Content[0].Text!;
+        logger.LogInformation($"Sending messages to the chat client [CompleteChat]");
+        ChatCompletion chatResponse = chatClient.CompleteChat(messages: messages);
+        logger.LogInformation($"Chat response: {chatResponse.Content[0].Text}");
+        return chatResponse.Content[0].Text!;
     }
 
     private void SaveFirstFrame(Mat videoFrame)
     {
         try
         {
-            _logger.LogInformation("Saving the first frame image to the disc");
+            logger.LogInformation("Saving the first frame image to the disc");
             var framePath = Path.Combine(Directory.GetCurrentDirectory(), "images", "frame.jpg");
             Cv2.ImWrite(framePath, videoFrame);
-            _logger.LogInformation($"First frame image saved to [{framePath}]");
+            logger.LogInformation($"First frame image saved to [{framePath}]");
 
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Error saving the first frame image: {ex.Message}");
+            logger.LogError($"Error saving the first frame image: {ex.Message}");
         }
     }
 }

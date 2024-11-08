@@ -90,6 +90,25 @@ Now you can select a video in your local machine, and upload the video to get a 
 
 If your client Blazor App can't connect to the API Service app, you may need to check the following scenarius.
 
+### Ingress Configuration
+
+Reset the API Service Ingress configuration following these steps:
+
+- In Resource Group in Azure, access to the `apiservice` Container App.
+
+- In the `Settings` menu, access the Ingress option.
+
+- Disable Ingress and save the changes.
+
+- Enable Ingress.
+
+- Validate that the `Accepting Traffic from anywhere` is selected.
+
+- Save the changes.
+
+- Restart the Container App.
+
+
 ### CORS
 
 Enable CORS in the API Service following these steps:
