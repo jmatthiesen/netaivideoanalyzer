@@ -18,7 +18,8 @@ properties:
       exposedPort: 0
       transport: auto
       allowInsecure: false
-      clientCertificateMode: Ignore
+      clientCertificateMode: ignore
+      stickySessionMode: none
     registries:
       - server: {{ .Env.AZURE_CONTAINER_REGISTRY_ENDPOINT }}
         identity: {{ .Env.AZURE_CONTAINER_REGISTRY_MANAGED_IDENTITY_ID }}
