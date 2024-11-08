@@ -102,7 +102,14 @@ Reset the API Service Ingress configuration following these steps:
 
 - Enable Ingress.
 
-- Validate that the `Accepting Traffic from anywhere` is selected.
+- Validate the following values
+
+  - `Accepting Traffic from anywhere` is selected.
+  - `Ingress Type` is `HTTP`.
+  - `Client Certification mode` is `Ignore`.
+  - `Transport` is `Auto`.
+  - `Insecure Connections` is not checked.
+  - `Target Port` is `0`.
 
 - Save the changes.
 
