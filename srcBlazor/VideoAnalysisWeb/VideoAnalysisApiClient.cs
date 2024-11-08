@@ -21,7 +21,7 @@ public class VideoAnalysisApiClient
         {
             response.EnsureSuccessStatusCode();
             videoResponse = await response.Content.ReadFromJsonAsync<VideoResponse>(cancellationToken: cancellationToken);
-            videoResponse.VideoFrame = httpClient.BaseAddress + videoResponse.VideoFrame;
+            videoResponse.VideoFrame = httpClient.BaseAddress.AbsoluteUri + videoResponse.VideoFrame;
         }
 
 
